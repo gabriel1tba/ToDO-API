@@ -3,13 +3,13 @@ import v4 from '../utils/uuidv4';
 
 const todosRouter = Router();
 
-interface Todos {
+interface ITodo {
   id: string;
   title: string;
   description: string;
 }
 
-const todos: Todos[] = [];
+const todos: ITodo[] = [];
 
 todosRouter.post('/', (request, response) => {
   const { title, description } = request.body;
