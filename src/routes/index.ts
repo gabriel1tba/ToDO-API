@@ -1,9 +1,8 @@
 import { Router } from 'express';
+import todosRouter from './todos.routes';
 
 const routes = Router();
 
-routes.get('/', (request, response) =>
-  response.json({ message: 'Hello World' }),
-);
+routes.get('todos', todosRouter);
 
 export default routes;
