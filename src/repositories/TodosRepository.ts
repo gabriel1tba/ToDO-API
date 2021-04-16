@@ -1,5 +1,9 @@
 import Todo from '../models/Todo';
 
+interface ITodo {
+  title: string;
+  description: string;
+}
 class TodosRepository {
   private todos: Todo[];
 
@@ -11,8 +15,8 @@ class TodosRepository {
     return this.todos;
   }
 
-  public create(title: string, description: string) {
-    const todo = new Todo(title, description);
+  public create({ title, description }: ITodo): Todo {
+    const todo = new Todo({ title, description });
 
     this.todos.push(todo);
 

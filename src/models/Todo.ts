@@ -1,20 +1,20 @@
 import v4 from '../utils/uuidv4';
 
-interface Todos {
+interface ITodos {
   id: string;
   title: string;
   description: string;
 }
 
-class Todo implements Todos {
+class Todo implements ITodos {
   id: string;
   title: string;
   description: string;
 
-  constructor(title: string, desscription: string) {
+  constructor({ title, description }: Omit<ITodos, 'id'>) {
     this.id = v4();
     this.title = title;
-    this.description = desscription;
+    this.description = description;
   }
 }
 
