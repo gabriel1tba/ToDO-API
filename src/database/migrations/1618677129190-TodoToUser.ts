@@ -12,7 +12,6 @@ export class TodoToUser1618677129190 implements MigrationInterface {
       new TableColumn({
         name: 'user_id',
         type: 'uuid',
-        isNullable: true,
       }),
     );
 

@@ -17,6 +17,14 @@ class CreateTodoService {
   }: IRequest): Promise<Todo> {
     const todosRepository = getCustomRepository(TodosRepository);
 
+    if (!user_id) {
+      throw new Error('ID de usuário obrigatório.');
+    }
+
+    if (!title) {
+      throw new Error('Título obrigatório.');
+    }
+
     const todo = todosRepository.create({
       user_id,
       title,
