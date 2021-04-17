@@ -3,6 +3,6 @@ import todosRouter from './todos.routes';
 
 const routes = Router();
 
-routes.get('todos', todosRouter);
+routes.use('/todos', todosRouter);
 
 export default routes;

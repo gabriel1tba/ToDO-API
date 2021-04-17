@@ -1,28 +1,29 @@
 import { Router } from 'express';
-import v4 from '../utils/uuidv4';
+
+import TodosRepository from '../repositories/TodosRepository';
+import CreateTodoService from '../services/CreateTodoService';
 
 const todosRouter = Router();
+const todosRepository = new TodosRepository();
 
-interface ITodo {
-  id: string;
-  title: string;
-  description: string;
-}
-
-const todos: ITodo[] = [];
-
-todosRouter.post('/', (request, response) => {
-  const { title, description } = request.body;
-
-  const todo = {
-    id: v4(),
-    title,
-    description,
-  };
-
-  todos.push(todo);
+todosRouter.get('/', (request, response) => {
+  const todos = todosRepository.all();
 
   return response.json(todos);
+});
+
+todosRouter.post('/', (request, response) => {
+  try {
+    const { title, description } = request.body;
+
+    const CreateTodo = new CreateTodoService(todosRepository);
+
+    const todo = CreateTodo.execute({ title, description });
+
+    return response.json(todo);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
 });
 
 export default todosRouter;
