@@ -20,6 +20,7 @@ export class CreateTodos1618661800669 implements MigrationInterface {
           {
             name: 'description',
             type: 'text',
+            isNullable: true,
           },
           {
             name: 'created_at',
