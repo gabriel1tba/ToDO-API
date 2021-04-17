@@ -16,11 +16,11 @@ todosRouter.get('/', async (request, response) => {
 
 todosRouter.post('/', async (request, response) => {
   try {
-    const { title, description } = request.body;
+    const { user_id, title, description } = request.body;
 
     const CreateTodo = new CreateTodoService();
 
-    const todo = await CreateTodo.execute({ title, description });
+    const todo = await CreateTodo.execute({ user_id, title, description });
 
     return response.json(todo);
   } catch (error) {
