@@ -11,7 +11,7 @@ export class CreateTodos1618661800669 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
-            // default: 'uuid_generate_v4()',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'title',
@@ -19,7 +19,7 @@ export class CreateTodos1618661800669 implements MigrationInterface {
           },
           {
             name: 'description',
-            type: 'varchar',
+            type: 'text',
           },
           {
             name: 'created_at',

@@ -1,3 +1,6 @@
+import { getCustomRepository } from 'typeorm';
+
+import Todo from '../models/Todo';
 import TodosRepository from '../repositories/TodosRepository';
 
 interface IRequest {
@@ -6,17 +9,15 @@ interface IRequest {
 }
 
 class CreateTodoService {
-  private todosRepository: TodosRepository;
+  public async execute({ title, description }: IRequest): Promise<Todo> {
+    const todosRepository = getCustomRepository(TodosRepository);
 
-  constructor(todosRepository: TodosRepository) {
-    this.todosRepository = todosRepository;
-  }
-
-  public execute({ title, description }: IRequest) {
-    const todo = this.todosRepository.create({
+    const todo = todosRepository.create({
       title,
       description,
     });
+
+    await todosRepository.save(todo);
 
     return todo;
   }

@@ -1,24 +1,26 @@
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 
 import TodosRepository from '../repositories/TodosRepository';
 import CreateTodoService from '../services/CreateTodoService';
 
 const todosRouter = Router();
-const todosRepository = new TodosRepository();
 
-todosRouter.get('/', (request, response) => {
-  const todos = todosRepository.all();
+todosRouter.get('/', async (request, response) => {
+  const todosRepository = getCustomRepository(TodosRepository);
+
+  const todos = await todosRepository.find();
 
   return response.json(todos);
 });
 
-todosRouter.post('/', (request, response) => {
+todosRouter.post('/', async (request, response) => {
   try {
     const { title, description } = request.body;
 
-    const CreateTodo = new CreateTodoService(todosRepository);
+    const CreateTodo = new CreateTodoService();
 
-    const todo = CreateTodo.execute({ title, description });
+    const todo = await CreateTodo.execute({ title, description });
 
     return response.json(todo);
   } catch (error) {
