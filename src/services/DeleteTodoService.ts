@@ -7,8 +7,12 @@ interface IRequest {
   id: string;
 }
 
+interface IResponse {
+  message: string;
+}
+
 class DeleteTodoService {
-  public async execute({ id }: IRequest): Promise<string> {
+  public async execute({ id }: IRequest): Promise<IResponse> {
     const todosRepository = getCustomRepository(TodosRepository);
 
     if (!id) {
@@ -23,7 +27,7 @@ class DeleteTodoService {
 
     await todosRepository.delete(id);
 
-    return `A tarefa ${todo.title} foi removida`;
+    return { message: `A tarefa: ${todo.title} foi removida` };
   }
 }
 
