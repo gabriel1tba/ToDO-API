@@ -28,17 +28,11 @@ todosRouter.post('/', async (request, response) => {
   }
 });
 
-todosRouter.get('/', async (request, response) => {
+todosRouter.get('/:user_id', async (request, response) => {
   try {
-    const { user_id } = request.body;
+    const { user_id } = request.params;
 
     const todosRepository = getCustomRepository(TodosRepository);
-
-    const checkIdExist = await todosRepository.findOne({ where: { user_id } });
-
-    if (!checkIdExist) {
-      throw new Errors('Não existe nenhuma lista com esse ID de usuário.', 404);
-    }
 
     const todos = await todosRepository.find({ where: { user_id } });
 
