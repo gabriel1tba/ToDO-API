@@ -38,7 +38,7 @@ Rotas para operações de CRUD (post, get, patch e delete) nos Todos.
 
 ## 🔥️ Executando o projeto
 
-Primeiro é necessário ter instalado o postgreSQL, e criar uma database com o nome todos-db.
+Primeiro é necessário ter instalado o postgreSQL, e criado uma database com o nome todos-db.
 
 Para alterar as configurações de conexão com o banco de dados basta abrir o arquivo ormconfig.json, que fica na raiz do projeto.
 
