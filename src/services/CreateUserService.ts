@@ -3,6 +3,8 @@ import { hash } from 'bcryptjs';
 
 import User from '../models/User';
 
+import Errors from '../erros/Errors';
+
 interface IRequest {
   name: string;
   email: string;
@@ -24,11 +26,11 @@ class CreateUserService {
     });
 
     if (checkUsersExists) {
-      throw new Error('Email já cadastrado.');
+      throw new Errors('Email já cadastrado.');
     }
 
     if (password !== confirmPassword) {
-      throw new Error('As senhas não são iguais.');
+      throw new Errors('As senhas não são iguais.');
     }
 
     const hashedPassword = await hash(password, 8);

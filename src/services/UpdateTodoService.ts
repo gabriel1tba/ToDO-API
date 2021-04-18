@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+import Errors from '../erros/Errors';
 
 import Todo from '../models/Todo';
 import TodosRepository from '../repositories/TodosRepository';
@@ -14,17 +15,17 @@ class UpdateTodoService {
     const todosRepository = getCustomRepository(TodosRepository);
 
     if (!id) {
-      throw new Error('ID Obrigatório.');
+      throw new Errors('ID Obrigatório.');
     }
 
     if (!title) {
-      throw new Error('Título obrigatório.');
+      throw new Errors('Título obrigatório.');
     }
 
     const todo = await todosRepository.findOne(id);
 
     if (!todo) {
-      throw new Error('Tarefa inexistente.');
+      throw new Errors('Tarefa inexistente.', 401);
     }
 
     await todosRepository.update(id, {
@@ -35,7 +36,7 @@ class UpdateTodoService {
     const newTodo = await todosRepository.findOne(id);
 
     if (!newTodo) {
-      throw new Error('Ops... Um erro inesperado aconteceu');
+      throw new Errors('Ops... Um erro inesperado aconteceu');
     }
 
     return newTodo;

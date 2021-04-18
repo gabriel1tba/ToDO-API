@@ -8,6 +8,8 @@ import CreateTodoService from '../services/CreateTodoService';
 import UpdateTodoService from '../services/UpdateTodoService';
 import DeleteTodoService from '../services/DeleteTodoService';
 
+import Errors from '../erros/Errors';
+
 const todosRouter = Router();
 
 todosRouter.use(routeAuthenticated);
@@ -35,7 +37,7 @@ todosRouter.get('/', async (request, response) => {
     const checkIdExist = await todosRepository.findOne({ where: { user_id } });
 
     if (!checkIdExist) {
-      throw new Error('Não existe nenhuma lista com esse ID de usuário.');
+      throw new Errors('Não existe nenhuma lista com esse ID de usuário.', 404);
     }
 
     const todos = await todosRepository.find({ where: { user_id } });

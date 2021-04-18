@@ -1,5 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 
+import Errors from '../erros/Errors';
+
 import Todo from '../models/Todo';
 import TodosRepository from '../repositories/TodosRepository';
 
@@ -18,11 +20,11 @@ class CreateTodoService {
     const todosRepository = getCustomRepository(TodosRepository);
 
     if (!user_id) {
-      throw new Error('ID de usuário obrigatório.');
+      throw new Errors('ID de usuário obrigatório.');
     }
 
     if (!title) {
-      throw new Error('Título obrigatório.');
+      throw new Errors('Título obrigatório.');
     }
 
     const todo = todosRepository.create({

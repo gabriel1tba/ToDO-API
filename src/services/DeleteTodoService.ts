@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+import Errors from '../erros/Errors';
 
 import Todo from '../models/Todo';
 import TodosRepository from '../repositories/TodosRepository';
@@ -16,13 +17,13 @@ class DeleteTodoService {
     const todosRepository = getCustomRepository(TodosRepository);
 
     if (!id) {
-      throw new Error('ID Obrigatório.');
+      throw new Errors('ID Obrigatório.');
     }
 
     const todo = await todosRepository.findOne(id);
 
     if (!todo) {
-      throw new Error('Tarefa inexistente.');
+      throw new Errors('Tarefa inexistente.', 404);
     }
 
     await todosRepository.delete(id);
