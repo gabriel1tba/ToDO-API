@@ -1,12 +1,16 @@
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
+import routeAuthenticated from '../middlewares/routeAuthenticated';
+
 import TodosRepository from '../repositories/TodosRepository';
 import CreateTodoService from '../services/CreateTodoService';
 import UpdateTodoService from '../services/UpdateTodoService';
 import DeleteTodoService from '../services/DeleteTodoService';
 
 const todosRouter = Router();
+
+todosRouter.use(routeAuthenticated);
 
 todosRouter.post('/', async (request, response) => {
   try {
