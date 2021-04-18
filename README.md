@@ -8,7 +8,7 @@ API feita em Typescript, utilizando Express e TypeORM. A API conta com rotas par
 
 &nbsp;
 
-![alt text](https://i.imgur.com/WWCSOZ4.png)
+![alt text](https://i.imgur.com/YWDTUTk.gif)
 
 &nbsp;
 
