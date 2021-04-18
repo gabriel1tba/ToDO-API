@@ -7,11 +7,23 @@ import CreateTodoService from '../services/CreateTodoService';
 const todosRouter = Router();
 
 todosRouter.get('/', async (request, response) => {
-  const todosRepository = getCustomRepository(TodosRepository);
+  try {
+    const { user_id } = request.body;
 
-  const todos = await todosRepository.find();
+    const todosRepository = getCustomRepository(TodosRepository);
 
-  return response.json(todos);
+    const checkIdExist = await todosRepository.findOne({ where: { user_id } });
+
+    if (!checkIdExist) {
+      throw new Error('Não existe nenhuma lista com esse ID de usuário.');
+    }
+
+    const todos = await todosRepository.find({ where: { user_id } });
+
+    return response.json(todos);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
 });
 
 todosRouter.post('/', async (request, response) => {
