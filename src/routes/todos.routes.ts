@@ -3,8 +3,23 @@ import { getCustomRepository } from 'typeorm';
 
 import TodosRepository from '../repositories/TodosRepository';
 import CreateTodoService from '../services/CreateTodoService';
+import UpdateTodoService from '../services/UpdateTodoService';
 
 const todosRouter = Router();
+
+todosRouter.post('/', async (request, response) => {
+  try {
+    const { user_id, title, description } = request.body;
+
+    const CreateTodo = new CreateTodoService();
+
+    const todo = await CreateTodo.execute({ user_id, title, description });
+
+    return response.json(todo);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
 
 todosRouter.get('/', async (request, response) => {
   try {
@@ -26,13 +41,15 @@ todosRouter.get('/', async (request, response) => {
   }
 });
 
-todosRouter.post('/', async (request, response) => {
+todosRouter.patch('/', async (request, response) => {
   try {
-    const { user_id, title, description } = request.body;
+    const { id, title, description } = request.body;
 
-    const CreateTodo = new CreateTodoService();
+    const todosRepository = getCustomRepository(TodosRepository);
 
-    const todo = await CreateTodo.execute({ user_id, title, description });
+    const UpdateTodo = new UpdateTodoService();
+
+    const todo = await UpdateTodo.execute({ id, title, description });
 
     return response.json(todo);
   } catch (error) {
