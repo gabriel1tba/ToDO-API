@@ -24,12 +24,12 @@ class UpdateTodoService {
     const todo = await todosRepository.findOne(id);
 
     if (!todo) {
-      throw new Error('Item inexistente.');
+      throw new Error('Tarefa inexistente.');
     }
 
     await todosRepository.update(id, {
       title,
-      description,
+      description: description ?? todo.description,
     });
 
     const newTodo = await todosRepository.findOne(id);

@@ -4,6 +4,7 @@ import { getCustomRepository } from 'typeorm';
 import TodosRepository from '../repositories/TodosRepository';
 import CreateTodoService from '../services/CreateTodoService';
 import UpdateTodoService from '../services/UpdateTodoService';
+import DeleteTodoService from '../services/DeleteTodoService';
 
 const todosRouter = Router();
 
@@ -45,13 +46,25 @@ todosRouter.patch('/', async (request, response) => {
   try {
     const { id, title, description } = request.body;
 
-    const todosRepository = getCustomRepository(TodosRepository);
-
     const UpdateTodo = new UpdateTodoService();
 
     const todo = await UpdateTodo.execute({ id, title, description });
 
     return response.json(todo);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
+
+todosRouter.delete('/', async (request, response) => {
+  try {
+    const { id } = request.body;
+
+    const DeleteTodo = new DeleteTodoService();
+
+    const deletedTodo = await DeleteTodo.execute({ id });
+
+    return response.json(deletedTodo);
   } catch (error) {
     return response.status(400).json({ error: error.message });
   }
