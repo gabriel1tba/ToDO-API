@@ -9,14 +9,8 @@ interface TokenPayload {
   sub: string;
 }
 
-interface IRequest extends Request {
-  user: {
-    id: string;
-  };
-}
-
 export default function routeAuthenticated(
-  request: IRequest,
+  request: Request,
   response: Response,
   next: NextFunction,
 ): void {
