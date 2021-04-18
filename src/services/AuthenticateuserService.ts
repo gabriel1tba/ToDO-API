@@ -4,6 +4,7 @@ import { sign } from 'jsonwebtoken';
 
 import User from '../models/User';
 import authConfig from '../config/auth';
+import Errors from '../erros/Errors';
 
 interface IRequest {
   email: string;
@@ -24,13 +25,13 @@ class AuthenticateuserService {
     });
 
     if (!user) {
-      throw new Error('Email ou senha incorretos.');
+      throw new Errors('Email ou senha incorretos.', 401);
     }
 
     const passwordMatched = await compare(password, user.password);
 
     if (!passwordMatched) {
-      throw new Error('Email ou senha incorretos.');
+      throw new Errors('Email ou senha incorretos.', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt;

@@ -3,6 +3,8 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '../config/auth';
 
+import Errors from '../erros/Errors';
+
 interface TokenPayload {
   iat: number;
   exp: number;
@@ -19,7 +21,7 @@ export default function routeAuthenticated(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('Sem Token JWT');
+    throw new Errors('Sem Token JWT', 401);
   }
 
   const { secret } = authConfig.jwt;
@@ -37,6 +39,6 @@ export default function routeAuthenticated(
 
     return next();
   } catch {
-    throw new Error('Invalid JWT Token');
+    throw (new Errors('Invalid JWT Token'), 401);
   }
 }
