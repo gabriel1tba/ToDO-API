@@ -17,9 +17,9 @@ usersRouter.post('/', async (request, response) => {
       confirmPassword,
     });
 
-    // @ts-expect-error Impedindo que a senha do usuário seja exibida
+    // @ts-expect-error
     delete user.password;
-    // @ts-expect-error Impedindo que a senha do usuário seja exibida
+    // @ts-expect-error
     delete user.confirmPassword;
 
     return response.json(user);
