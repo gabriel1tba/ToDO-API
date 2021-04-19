@@ -32,15 +32,7 @@ Rota para criação de usuário;
 
 Rota para autenticação, com geração de token JWT;
 
-Rotas para gerenciar os To dos
-
-POST - Criar To do
-
-GET - Listar To dos
-
-PATCH - Alterar To do
-
-DELETE - Remover To do.
+Rota autenticada para gerenciar os To dos: POST - Criar To do | GET - Listar To dos | PATCH - Alterar To do | DELETE - Remover To do.
 
 &nbsp;
 
