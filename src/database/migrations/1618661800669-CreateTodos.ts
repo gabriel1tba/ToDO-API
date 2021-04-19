@@ -13,7 +13,10 @@ export class CreateTodos1618661800669 implements MigrationInterface {
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
-
+          {
+            name: 'completed',
+            type: 'boolean',
+          },
           {
             name: 'title',
             type: 'varchar',

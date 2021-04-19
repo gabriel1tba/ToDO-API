@@ -6,12 +6,18 @@ import TodosRepository from '../repositories/TodosRepository';
 
 interface IRequest {
   id: string;
+  completed: boolean;
   title: string;
   description: string;
 }
 
 class UpdateTodoService {
-  public async execute({ id, title, description }: IRequest): Promise<Todo> {
+  public async execute({
+    id,
+    completed,
+    title,
+    description,
+  }: IRequest): Promise<Todo> {
     const todosRepository = getCustomRepository(TodosRepository);
 
     if (!id) {
@@ -29,7 +35,8 @@ class UpdateTodoService {
     }
 
     await todosRepository.update(id, {
-      title,
+      completed: completed ?? todo.completed,
+      title: title ?? todo.title,
       description: description ?? todo.description,
     });
 

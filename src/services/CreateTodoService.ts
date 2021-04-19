@@ -7,6 +7,7 @@ import TodosRepository from '../repositories/TodosRepository';
 
 interface IRequest {
   user_id: string;
+  completed: boolean;
   title: string;
   description: string;
 }
@@ -14,6 +15,7 @@ interface IRequest {
 class CreateTodoService {
   public async execute({
     user_id,
+    completed,
     title,
     description,
   }: IRequest): Promise<Todo> {
@@ -29,6 +31,7 @@ class CreateTodoService {
 
     const todo = todosRepository.create({
       user_id,
+      completed,
       title,
       description,
     });

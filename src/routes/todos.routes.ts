@@ -16,11 +16,16 @@ todosRouter.use(routeAuthenticated);
 
 todosRouter.post('/', async (request, response) => {
   try {
-    const { user_id, title, description } = request.body;
+    const { user_id, completed, title, description } = request.body;
 
     const CreateTodo = new CreateTodoService();
 
-    const todo = await CreateTodo.execute({ user_id, title, description });
+    const todo = await CreateTodo.execute({
+      user_id,
+      completed,
+      title,
+      description,
+    });
 
     return response.json(todo);
   } catch (error) {
@@ -44,11 +49,16 @@ todosRouter.get('/:user_id', async (request, response) => {
 
 todosRouter.patch('/', async (request, response) => {
   try {
-    const { id, title, description } = request.body;
+    const { id, completed, title, description } = request.body;
 
     const UpdateTodo = new UpdateTodoService();
 
-    const todo = await UpdateTodo.execute({ id, title, description });
+    const todo = await UpdateTodo.execute({
+      id,
+      completed,
+      title,
+      description,
+    });
 
     return response.json(todo);
   } catch (error) {

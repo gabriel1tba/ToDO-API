@@ -12,6 +12,7 @@ import User from './User';
 
 interface ITodos {
   id: string;
+  completed: boolean;
   title: string;
   description: string;
 }
@@ -26,6 +27,9 @@ class Todo implements ITodos {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @Column()
+  completed: boolean;
 
   @Column()
   title: string;
