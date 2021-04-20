@@ -31,6 +31,6 @@ app.use(
   },
 );
 
-app.listen(3333, () => {
+app.listen(process.env.APP_PORT, () => {
   console.log('Server started! 🔥');
 });
