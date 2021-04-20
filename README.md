@@ -54,7 +54,13 @@ Instalando as dependências:
 yarn
 ```
 
-Para iniciar digite no terminal:
+Rodando migrations
+
+```bash
+yarn typeorm migration:run
+```
+
+Para iniciar o server, basta digitar no terminal:
 
 ```bash
 yarn start
