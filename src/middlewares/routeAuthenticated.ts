@@ -29,7 +29,7 @@ export default function routeAuthenticated(
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded = verify(token, secret as string);
+    const decoded = verify(token, secret);
 
     const { sub } = decoded as TokenPayload;
 
