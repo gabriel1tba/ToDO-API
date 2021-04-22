@@ -16,6 +16,7 @@ export class CreateTodos1618661800669 implements MigrationInterface {
           {
             name: 'completed',
             type: 'boolean',
+            default: false,
           },
           {
             name: 'title',

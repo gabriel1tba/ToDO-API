@@ -28,13 +28,13 @@ class Todo implements ITodos {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column()
+  @Column({ default: false })
   completed: boolean;
 
   @Column()
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @CreateDateColumn()
