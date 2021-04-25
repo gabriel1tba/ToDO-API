@@ -15,8 +15,6 @@ API feita em Typescript, utilizando Express e TypeORM. A API conta com rotas par
 ## 💻 Tecnologias utilizadas
 
 - **typescript**
-- **eslint**
-- **prettier**
 - **express**
 - **typeorm**
 - **postgresql**
