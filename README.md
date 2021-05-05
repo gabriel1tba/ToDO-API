@@ -10,6 +10,8 @@ API feita em Typescript, utilizando Express e TypeORM. A API conta com rotas par
 
 ![alt text](https://i.imgur.com/YWDTUTk.gif)
 
+Clique [aqui](https://to-do-documentation.vercel.app/) para acessar a documentação
+
 &nbsp;
 
 ## 💻 Tecnologias utilizadas
