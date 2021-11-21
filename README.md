@@ -12,7 +12,7 @@ API feita em Typescript, utilizando Express e TypeORM. A API conta com rotas par
 
 Clique [aqui](https://to-do-documentation.vercel.app/) para acessar a documentação
 
-&nbsp;
+PS: Clique [aqui](https://github.com/gabrielitba/ToDO-Frontend) para acessar o repositório com a API do projeto
 
 ## 💻 Tecnologias utilizadas
 
