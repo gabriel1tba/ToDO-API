@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import Errors from '../erros/Errors';
 
 const usersRouter = Router();
 
@@ -23,7 +24,8 @@ usersRouter.post('/', async (request, response) => {
     delete user.confirmPassword;
 
     return response.json(user);
-  } catch (error) {
+  } catch (err) {
+    const error = err as Errors;
     return response.status(400).json({ error: error.message });
   }
 });

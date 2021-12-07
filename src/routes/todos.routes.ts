@@ -28,7 +28,8 @@ todosRouter.post('/', async (request, response) => {
     });
 
     return response.json(todo);
-  } catch (error) {
+  } catch (err) {
+    const error = err as Errors;
     return response.status(400).json({ error: error.message });
   }
 });
@@ -42,7 +43,8 @@ todosRouter.get('/:user_id', async (request, response) => {
     const todos = await todosRepository.find({ where: { user_id } });
 
     return response.json(todos);
-  } catch (error) {
+  } catch (err) {
+    const error = err as Errors;
     return response.status(400).json({ error: error.message });
   }
 });
@@ -61,7 +63,8 @@ todosRouter.patch('/', async (request, response) => {
     });
 
     return response.json(todo);
-  } catch (error) {
+  } catch (err) {
+    const error = err as Errors;
     return response.status(400).json({ error: error.message });
   }
 });
@@ -75,7 +78,8 @@ todosRouter.delete('/', async (request, response) => {
     const deletedTodo = await DeleteTodo.execute({ id });
 
     return response.json(deletedTodo);
-  } catch (error) {
+  } catch (err) {
+    const error = err as Errors;
     return response.status(400).json({ error: error.message });
   }
 });
