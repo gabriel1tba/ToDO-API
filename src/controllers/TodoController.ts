@@ -25,7 +25,7 @@ class TodoController {
     }
   }
 
-  public async store(request: Request, response: Response): Promise<Response> {
+  public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { user_id, completed, title, description } = request.body;
 

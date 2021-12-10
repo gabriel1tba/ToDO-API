@@ -4,7 +4,7 @@ import CreateUserService from '../services/CreateUserService';
 import Errors from '../erros/Errors';
 
 class UserController {
-  public async store(request: Request, response: Response): Promise<Response> {
+  public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { name, email, password, confirmPassword } = request.body;
 
