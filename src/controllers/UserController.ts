@@ -17,7 +17,6 @@ class UserController {
         confirmPassword,
       });
 
-      // @ts-expect-error
       delete user.password;
       // @ts-expect-error
       delete user.confirmPassword;
