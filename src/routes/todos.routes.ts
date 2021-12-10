@@ -4,7 +4,6 @@ import routeAuthenticated from '../middlewares/routeAuthenticated';
 import TodoController from '../controllers/TodoController';
 
 const todosRouter = Router();
-
 const todoController = new TodoController();
 
 todosRouter.use(routeAuthenticated);
