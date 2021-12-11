@@ -26,58 +26,43 @@ class TodoController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    try {
-      const { user_id, completed, title, description } = request.body;
+    const { user_id, completed, title, description } = request.body;
 
-      const CreateTodo = new CreateTodoService();
+    const CreateTodo = new CreateTodoService();
 
-      const todo = await CreateTodo.execute({
-        user_id,
-        completed,
-        title,
-        description,
-      });
+    const todo = await CreateTodo.execute({
+      user_id,
+      completed,
+      title,
+      description,
+    });
 
-      return response.json(todo);
-    } catch (err) {
-      const error = err as Errors;
-      return response.status(400).json({ error: error.message });
-    }
+    return response.json(todo);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    try {
-      const { id, completed, title, description } = request.body;
+    const { id, completed, title, description } = request.body;
 
-      const UpdateTodo = new UpdateTodoService();
+    const UpdateTodo = new UpdateTodoService();
 
-      const todo = await UpdateTodo.execute({
-        id,
-        completed,
-        title,
-        description,
-      });
+    const todo = await UpdateTodo.execute({
+      id,
+      completed,
+      title,
+      description,
+    });
 
-      return response.json(todo);
-    } catch (err) {
-      const error = err as Errors;
-      return response.status(400).json({ error: error.message });
-    }
+    return response.json(todo);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    try {
-      const { id } = request.body;
+    const { id } = request.body;
 
-      const DeleteTodo = new DeleteTodoService();
+    const DeleteTodo = new DeleteTodoService();
 
-      const deletedTodo = await DeleteTodo.execute({ id });
+    const deletedTodo = await DeleteTodo.execute({ id });
 
-      return response.json(deletedTodo);
-    } catch (err) {
-      const error = err as Errors;
-      return response.status(400).json({ error: error.message });
-    }
+    return response.json(deletedTodo);
   }
 }
 
