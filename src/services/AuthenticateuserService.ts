@@ -6,7 +6,7 @@ import authConfig from '../config/auth';
 import Errors from '../erros/Errors';
 
 import UsersRepository from '../repositories/UsersRepository';
-import { IUsersRepository } from '../contracts/IUsersRepository';
+import { IUsersRepository } from '../contracts/UsersRepository';
 
 interface IRequest {
   email: string;

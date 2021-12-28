@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 import User from '../models/User';
 import Errors from '../erros/Errors';
 
-import { IUsersRepository } from '../contracts/IUsersRepository';
+import { IUsersRepository } from '../contracts/UsersRepository';
 
 import UsersRepository from '../repositories/UsersRepository';
 

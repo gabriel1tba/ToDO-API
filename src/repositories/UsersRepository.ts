@@ -1,8 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
-import {
-  ICreateUserDTO,
-  IUsersRepository,
-} from '../contracts/IUsersRepository';
+import { ICreateUserDTO, IUsersRepository } from '../contracts/UsersRepository';
 
 import User from '../models/User';
 
