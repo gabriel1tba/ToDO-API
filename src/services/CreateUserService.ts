@@ -1,9 +1,11 @@
-import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 
 import User from '../models/User';
-
 import Errors from '../erros/Errors';
+
+import { IUsersRepository } from '../contracts/IUsersRepository';
+
+import UsersRepository from '../repositories/UsersRepository';
 
 interface IRequest {
   name: string;
@@ -11,20 +13,20 @@ interface IRequest {
   password: string;
   confirmPassword: string;
 }
-
 class CreateUserService {
+  private usersRepository: IUsersRepository;
+
+  constructor() {
+    this.usersRepository = new UsersRepository();
+  }
+
   public async execute({
     name,
     email,
     password,
     confirmPassword,
   }: IRequest): Promise<User> {
-    const usersRepository = getRepository(User);
-
-    const checkUsersExists = await usersRepository.findOne({
-      where: { email },
-    });
-
+    const checkUsersExists = await this.usersRepository.findByEmail(email);
     if (checkUsersExists) {
       throw new Errors('Email já cadastrado.');
     }
@@ -35,13 +37,11 @@ class CreateUserService {
 
     const hashedPassword = await hash(password, 8);
 
-    const user = usersRepository.create({
+    const user = this.usersRepository.create({
       name,
       email,
       password: hashedPassword,
     });
-
-    await usersRepository.save(user);
 
     return user;
   }

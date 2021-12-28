@@ -1,10 +1,12 @@
-import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
 import User from '../models/User';
 import authConfig from '../config/auth';
 import Errors from '../erros/Errors';
+
+import UsersRepository from '../repositories/UsersRepository';
+import { IUsersRepository } from '../contracts/IUsersRepository';
 
 interface IRequest {
   email: string;
@@ -17,12 +19,14 @@ interface IResponse {
 }
 
 class AuthenticateuserService {
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
-    const usersRepository = getRepository(User);
+  private usersRepository: IUsersRepository;
 
-    const user = await usersRepository.findOne({
-      where: { email },
-    });
+  constructor() {
+    this.usersRepository = new UsersRepository();
+  }
+
+  public async execute({ email, password }: IRequest): Promise<IResponse> {
+    const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       throw new Errors('Email ou senha incorretos.', 401);
