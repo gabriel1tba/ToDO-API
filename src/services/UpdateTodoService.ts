@@ -1,7 +1,9 @@
 import { getCustomRepository } from 'typeorm';
+import { ITodosRepository } from '../contracts/TodosRepository';
 import Errors from '../erros/Errors';
 
 import Todo from '../models/Todo';
+
 import TodosRepository from '../repositories/TodosRepository';
 
 interface IRequest {
@@ -12,14 +14,18 @@ interface IRequest {
 }
 
 class UpdateTodoService {
+  private todosRepository: ITodosRepository;
+
+  constructor() {
+    this.todosRepository = new TodosRepository();
+  }
+
   public async execute({
     id,
     completed,
     title,
     description,
   }: IRequest): Promise<Todo> {
-    const todosRepository = getCustomRepository(TodosRepository);
-
     if (!id) {
       throw new Errors('ID Obrigatório.');
     }
@@ -28,19 +34,18 @@ class UpdateTodoService {
       throw new Errors('Título obrigatório.');
     }
 
-    const todo = await todosRepository.findOne(id);
+    const todo = await this.todosRepository.findById(id);
 
     if (!todo) {
       throw new Errors('Tarefa inexistente.', 401);
     }
 
-    await todosRepository.update(id, {
+    const newTodo = await this.todosRepository.save({
+      id,
       completed: completed ?? todo.completed,
       title: title ?? todo.title,
       description: description ?? todo.description,
     });
-
-    const newTodo = await todosRepository.findOne(id);
 
     if (!newTodo) {
       throw new Errors('Ops... Um erro inesperado aconteceu');

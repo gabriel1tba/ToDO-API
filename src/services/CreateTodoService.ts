@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { ITodosRepository } from '../contracts/TodosRepository';
 
 import Errors from '../erros/Errors';
 
@@ -13,14 +13,18 @@ interface IRequest {
 }
 
 class CreateTodoService {
+  private todosRepository: ITodosRepository;
+
+  constructor() {
+    this.todosRepository = new TodosRepository();
+  }
+
   public async execute({
     user_id,
     completed,
     title,
     description,
   }: IRequest): Promise<Todo> {
-    const todosRepository = getCustomRepository(TodosRepository);
-
     if (!user_id) {
       throw new Errors('ID de usuário obrigatório.');
     }
@@ -29,14 +33,12 @@ class CreateTodoService {
       throw new Errors('Título obrigatório.');
     }
 
-    const todo = todosRepository.create({
+    const todo = this.todosRepository.create({
       user_id,
       completed,
       title,
       description,
     });
-
-    await todosRepository.save(todo);
 
     return todo;
   }

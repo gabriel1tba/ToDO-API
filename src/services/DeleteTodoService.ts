@@ -1,34 +1,27 @@
-import { getCustomRepository } from 'typeorm';
+import {
+  IDeleteResponse,
+  ITodosRepository,
+} from '../contracts/TodosRepository';
 import Errors from '../erros/Errors';
 
-import Todo from '../models/Todo';
 import TodosRepository from '../repositories/TodosRepository';
 
 interface IRequest {
   id: string;
 }
 
-interface IResponse {
-  message: string;
-}
-
 class DeleteTodoService {
-  public async execute({ id }: IRequest): Promise<IResponse> {
-    const todosRepository = getCustomRepository(TodosRepository);
+  private todosRepository: ITodosRepository;
 
+  constructor() {
+    this.todosRepository = new TodosRepository();
+  }
+  public async execute({ id }: IRequest): Promise<IDeleteResponse> {
     if (!id) {
       throw new Errors('ID Obrigatório.');
     }
 
-    const todo = await todosRepository.findOne(id);
-
-    if (!todo) {
-      throw new Errors('Tarefa inexistente.', 404);
-    }
-
-    await todosRepository.delete(id);
-
-    return { message: `A tarefa: ${todo.title} foi removida` };
+    return this.todosRepository.delete(id);
   }
 }
 

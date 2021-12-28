@@ -1,28 +1,19 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 
-import TodosRepository from '../repositories/TodosRepository';
-
+import GetTodosService from '../services/GetTodosService';
 import CreateTodoService from '../services/CreateTodoService';
 import UpdateTodoService from '../services/UpdateTodoService';
 import DeleteTodoService from '../services/DeleteTodoService';
 
-import Errors from '../erros/Errors';
-
 class TodoController {
   public async index(request: Request, response: Response): Promise<Response> {
-    try {
-      const { user_id } = request.params;
+    const { user_id } = request.params;
 
-      const todosRepository = getCustomRepository(TodosRepository);
+    const GetTodos = new GetTodosService();
 
-      const todos = await todosRepository.find({ where: { user_id } });
+    const todos = await GetTodos.execute({ user_id });
 
-      return response.json(todos);
-    } catch (err) {
-      const error = err as Errors;
-      return response.status(400).json({ error: error.message });
-    }
+    return response.json(todos);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
