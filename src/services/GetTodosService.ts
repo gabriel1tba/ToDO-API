@@ -21,8 +21,6 @@ class GetTodosService {
   public async execute({ user_id }: IRequest): Promise<Todo[] | undefined> {
     const checkUsersExists = await this.usersRepository.findById(user_id);
 
-    console.log('opa', checkUsersExists);
-
     if (!checkUsersExists) {
       throw new Errors('Usuário não existe', 404);
     }
